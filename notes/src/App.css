@@ -11,3 +11,20 @@ table {
 	width: 100%;
 	padding: 10px;
 }
+
+.header {
+	background-color: grey;
+}
+
+.note {
+	background-color: cornflowerblue;
+}
+
+.myButton {
+	margin: 5px;
+}
+
+.contentNote {
+	word-wrap: break-word;
+	width: 600px;
+}

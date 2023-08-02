@@ -2,6 +2,7 @@ import React from "react";
 import { INote } from "../model/note.model";
 import { useAppDispatch } from "../hooks/redux";
 import { archiveNoteAction, removeNoteAction, undoNoteAction } from "../store/reducers/noteReducer";
+import { Button } from "react-bootstrap";
 
 export const ButtonPanel = (props: { note: INote; isEdit: boolean; setterEdit: Function; saveChanges: Function }) => {
 	const dispatch = useAppDispatch();
@@ -23,51 +24,60 @@ export const ButtonPanel = (props: { note: INote; isEdit: boolean; setterEdit: F
 	};
 
 	return (
-		<div>
+		<div className='ButtonPanel'>
 			{props.isEdit ? (
-				<button
+				<Button
+					className='myButton'
+					variant='success'
 					onClick={() => {
 						props.saveChanges(props.note.id);
 						changeStateEdit();
 					}}
 				>
 					Save
-				</button>
+				</Button>
 			) : (
-				<button
+				<Button
+					className='myButton'
+					variant='warning'
 					onClick={() => {
 						changeStateEdit();
 					}}
 				>
 					Edit
-				</button>
+				</Button>
 			)}
 
 			{props.note.archived ? (
-				<button
+				<Button
+					className='myButton'
 					onClick={() => {
 						undoNote(props.note.id);
 					}}
 				>
 					{" "}
 					Undo
-				</button>
+				</Button>
 			) : (
-				<button
+				<Button
+					className='myButton'
+					variant='info'
 					onClick={() => {
 						archiveNote(props.note.id);
 					}}
 				>
 					Archive
-				</button>
+				</Button>
 			)}
-			<button
+			<Button
+				className='myButton'
 				onClick={() => {
 					removeNote(props.note.id);
 				}}
+				variant='danger'
 			>
 				Remove
-			</button>
+			</Button>
 		</div>
 	);
 };

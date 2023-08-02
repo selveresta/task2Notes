@@ -16,7 +16,7 @@ export const NoteTable = (props: ITable) => {
 			{props.notes.length !== 0 ? (
 				<table>
 					<thead>
-						<tr>
+						<tr className='header'>
 							{props.headers.map((header, index) => (
 								<th key={index}>{header}</th>
 							))}
@@ -31,7 +31,7 @@ export const NoteTable = (props: ITable) => {
 					) : (
 						<tbody>
 							{props.notes.map((note: INote) => (
-								<Note key={note.id} note={note}></Note>
+								<Note  key={note.id} note={note}></Note>
 							))}
 						</tbody>
 					)}
@@ -40,7 +40,7 @@ export const NoteTable = (props: ITable) => {
 				<div>
 					<table>
 						<thead>
-							<tr>
+							<tr className='header'>
 								{props.headers.map((header, index) => (
 									<th key={index}>{header}</th>
 								))}

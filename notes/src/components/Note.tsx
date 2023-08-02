@@ -39,7 +39,7 @@ const Note = (props: { note: INote }) => {
 	const [category, setCategory] = useState(String(props.note.category));
 
 	return (
-		<tr>
+		<tr className='note'>
 			<td>
 				<img src={require(`../icons/${props.note.img}`)} className='imgLogo' alt='img'></img>
 			</td>
@@ -71,7 +71,7 @@ const Note = (props: { note: INote }) => {
 					/>
 				</td>
 			) : (
-				<td>{props.note.content}</td>
+				<td className='contentNote'>{props.note.content}</td>
 			)}
 			{isEdit ? (
 				<td>

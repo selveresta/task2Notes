@@ -22,7 +22,7 @@ export const SummaryRow = (props: { row: SummaryRowProp }) => {
 	}, [notes]);
 
 	return (
-		<tr>
+		<tr className='note'>
 			<td>
 				<img className='imgLogo' alt='' src={require(`../icons/${props.row.img}`)}></img>
 			</td>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import "./App.css";
 import { useAppSelector } from "./hooks/redux";
 import { NoteTable } from "./components/NoteTable";
@@ -24,7 +23,6 @@ function App() {
 	return (
 		<div className='App'>
 			<AddModal show={modalShow} onHide={() => setModalShow(false)} />
-
 			<h2 style={{ textAlign: "center" }}>Notes</h2>
 			<NoteTable notes={ActiveNotes} headers={tableHeaders} isSummary={false} category={categoryIcon}></NoteTable>
 			<hr></hr>
@@ -34,13 +32,11 @@ function App() {
 			<hr></hr>
 			<h2 style={{ textAlign: "center" }}>Archive</h2>
 			<NoteTable headers={tableHeaders} isSummary={false} notes={ArchiveNotes} category={categoryIcon}></NoteTable>
-
 			<hr></hr>
 			<br />
 			<h2 style={{ textAlign: "center" }}>Summary</h2>
 			<NoteTable headers={summaryHeaders} isSummary={true} notes={notes} category={categoryIcon}></NoteTable>
-
-			{/* <SummaryTable></SummaryTable> */}
+			<br></br> <br></br>
 		</div>
 	);
 }

@@ -3,16 +3,19 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { categoryIcon } from "../store/data/noteData";
 import { useAppDispatch } from "../hooks/redux";
 import { ECategory, INote } from "../model/note.model";
-import {  addNoteAction } from "../store/reducers/noteReducer";
+import { addNoteAction } from "../store/reducers/noteReducer";
 
 export const AddModal = (props: any) => {
 	const dispatch = useAppDispatch();
 
-	const [name, setName] = useState("Note");
+	const [name, setName] = useState("");
 	const [content, setContent] = useState("");
 	const [category, setCategory] = useState("Task");
 
 	const addNewNote = () => {
+		if (name.length === 0 || content.length === 0) {
+			return;
+		}
 		let chooseCategory: ECategory = ECategory.Idea;
 		let img: string = "";
 		categoryIcon.forEach((value) => {
@@ -33,6 +36,10 @@ export const AddModal = (props: any) => {
 		};
 
 		dispatch(addNoteAction(newNote));
+
+		setName("");
+		setContent("");
+		setCategory("Task");
 	};
 
 	return (
