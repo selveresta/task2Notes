@@ -62,6 +62,7 @@ export const noteReducer = (state: NoteState = notesState, action: NoteAction): 
 						name: { $set: action.payload.name },
 						content: { $set: action.payload.content },
 						category: { $set: action.payload.category },
+						img: { $set: action.payload.img },
 					},
 				},
 			});
@@ -111,8 +112,16 @@ export const noteReducer = (state: NoteState = notesState, action: NoteAction): 
 	}
 };
 
+export interface editPayload {
+	id: number;
+	name: string;
+	content: string;
+	category: string;
+	img: string;
+}
+
 export const addNoteAction = (payload: INote) => ({ type: EActions.ADD_NOTE, payload: payload });
-export const editNoteAction = (payload: INote) => ({ type: EActions.EDIT_NOTE, payload: payload });
+export const editNoteAction = (payload: editPayload) => ({ type: EActions.EDIT_NOTE, payload: payload });
 export const removeNoteAction = (payload: INote) => ({ type: EActions.REMOVE_NOTE, payload: payload });
 export const archiveNoteAction = (payload: INote) => ({ type: EActions.ARCHIVE_NOTE, payload: payload });
 export const undoNoteAction = (payload: INote) => ({ type: EActions.UNDO_NOTE, payload: payload });

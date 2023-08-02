@@ -1,14 +1,10 @@
 import React from "react";
 import { INote } from "../model/note.model";
 import { useAppDispatch } from "../hooks/redux";
-import { archiveNoteAction, editNoteAction, removeNoteAction, undoNoteAction } from "../store/reducers/noteReducer";
+import { archiveNoteAction, removeNoteAction, undoNoteAction } from "../store/reducers/noteReducer";
 
-export const ButtonPanel = (props: { note: INote }) => {
+export const ButtonPanel = (props: { note: INote; isEdit: boolean; setterEdit: Function; saveChanges: Function }) => {
 	const dispatch = useAppDispatch();
-
-	const editNote = (id: number) => {
-		dispatch(editNoteAction(props.note));
-	};
 
 	const archiveNote = (id: number) => {
 		dispatch(archiveNoteAction(props.note));
@@ -22,15 +18,31 @@ export const ButtonPanel = (props: { note: INote }) => {
 		dispatch(removeNoteAction(props.note));
 	};
 
+	const changeStateEdit = () => {
+		props.setterEdit(!props.isEdit);
+	};
+
 	return (
 		<div>
-			<button
-				onClick={() => {
-					editNote(props.note.id);
-				}}
-			>
-				Edit
-			</button>
+			{props.isEdit ? (
+				<button
+					onClick={() => {
+						props.saveChanges(props.note.id);
+						changeStateEdit();
+					}}
+				>
+					Save
+				</button>
+			) : (
+				<button
+					onClick={() => {
+						changeStateEdit();
+					}}
+				>
+					Edit
+				</button>
+			)}
+
 			{props.note.archived ? (
 				<button
 					onClick={() => {
