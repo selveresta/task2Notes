@@ -1,40 +1,55 @@
 import React from "react";
-import { INote } from "../model/note.model";
-import { tableHeaders } from "../store/data/noteData";
+import { ECategory, INote } from "../model/note.model";
 import Note from "./Note";
+import { SummaryRow } from "./SummaryRow";
 
-export const NoteTable = (props: { notes: INote[] }) => {
-	if (props.notes.length === 0) {
-		return (
-			<div>
+interface ITable {
+	notes: INote[];
+	category: { category: ECategory; img: string }[];
+	headers: string[];
+	isSummary: boolean;
+}
+
+export const NoteTable = (props: ITable) => {
+	return (
+		<div>
+			{props.notes.length !== 0 ? (
 				<table>
 					<thead>
 						<tr>
-							{tableHeaders.map((header, index) => (
+							{props.headers.map((header, index) => (
 								<th key={index}>{header}</th>
 							))}
 						</tr>
 					</thead>
-					<tbody></tbody>
+					{props.isSummary ? (
+						<tbody>
+							{props.category.map((category) => (
+								<SummaryRow key={category.category} row={category}></SummaryRow>
+							))}
+						</tbody>
+					) : (
+						<tbody>
+							{props.notes.map((note: INote) => (
+								<Note key={note.id} note={note}></Note>
+							))}
+						</tbody>
+					)}
 				</table>
-				<h2 style={{ textAlign: "center" }}>No Archived Notes</h2>
-			</div>
-		);
-	}
-	return (
-		<table>
-			<thead>
-				<tr>
-					{tableHeaders.map((header, index) => (
-						<th key={index}>{header}</th>
-					))}
-				</tr>
-			</thead>
-			<tbody>
-				{props.notes.map((note) => (
-					<Note key={note.id} note={note}></Note>
-				))}
-			</tbody>
-		</table>
+			) : (
+				<div>
+					<table>
+						<thead>
+							<tr>
+								{props.headers.map((header, index) => (
+									<th key={index}>{header}</th>
+								))}
+							</tr>
+						</thead>
+					</table>
+					<h2 style={{ textAlign: "center" }}>No Notes</h2>
+				</div>
+			)}
+		</div>
 	);
 };

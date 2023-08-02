@@ -6,7 +6,7 @@ import { NoteTable } from "./components/NoteTable";
 import { Button } from "react-bootstrap";
 import { AddModal } from "./modals/AddModal";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { SummaryTable } from "./components/SummaryTable";
+import { categoryIcon, summaryHeaders, tableHeaders } from "./store/data/noteData";
 
 function App() {
 	const [modalShow, setModalShow] = useState(false);
@@ -17,7 +17,7 @@ function App() {
 		return value.archived === true;
 	});
 
-	const NoArchiveNotes = notes.filter((value) => {
+	const ActiveNotes = notes.filter((value) => {
 		return value.archived === false;
 	});
 
@@ -26,19 +26,21 @@ function App() {
 			<AddModal show={modalShow} onHide={() => setModalShow(false)} />
 
 			<h2 style={{ textAlign: "center" }}>Notes</h2>
-			<NoteTable notes={NoArchiveNotes}></NoteTable>
+			<NoteTable notes={ActiveNotes} headers={tableHeaders} isSummary={false} category={categoryIcon}></NoteTable>
 			<hr></hr>
 			<Button variant='primary' onClick={() => setModalShow(true)}>
 				Add New Note{" "}
 			</Button>
 			<hr></hr>
 			<h2 style={{ textAlign: "center" }}>Archive</h2>
-			<NoteTable notes={ArchiveNotes}></NoteTable>
+			<NoteTable headers={tableHeaders} isSummary={false} notes={ArchiveNotes} category={categoryIcon}></NoteTable>
 
 			<hr></hr>
 			<br />
 			<h2 style={{ textAlign: "center" }}>Summary</h2>
-			<SummaryTable></SummaryTable>
+			<NoteTable headers={summaryHeaders} isSummary={true} notes={notes} category={categoryIcon}></NoteTable>
+
+			{/* <SummaryTable></SummaryTable> */}
 		</div>
 	);
 }

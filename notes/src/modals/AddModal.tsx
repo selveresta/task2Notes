@@ -3,7 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { categoryIcon } from "../store/data/noteData";
 import { useAppDispatch } from "../hooks/redux";
 import { ECategory, INote } from "../model/note.model";
-import { EActions } from "../store/reducers/noteReducer";
+import {  addNoteAction } from "../store/reducers/noteReducer";
 
 export const AddModal = (props: any) => {
 	const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ export const AddModal = (props: any) => {
 			archived: false,
 		};
 
-		dispatch({ type: EActions.ADD_NOTE, payload: newNote });
+		dispatch(addNoteAction(newNote));
 	};
 
 	return (

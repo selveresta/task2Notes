@@ -47,14 +47,24 @@ export const noteReducer = (state: NoteState = notesState, action: NoteAction): 
 		case EActions.ADD_NOTE:
 			return { ...state, notes: [...state.notes, action.payload] };
 		case EActions.EDIT_NOTE:
-			const note = state.notes.filter((value) => {
+			const editNote = state.notes.find((value) => {
 				return value.id === action.payload.id;
-			})[0];
-			note.category = action.payload.category;
-			note.name = action.payload.name;
-			note.content = action.payload.content;
-			//actions with note
-			return state;
+			});
+			let indexEDit = 0;
+			if (editNote) {
+				indexEDit = state.notes.indexOf(editNote);
+			} else {
+				return { ...state };
+			}
+			return update(state, {
+				notes: {
+					[indexEDit]: {
+						name: { $set: action.payload.name },
+						content: { $set: action.payload.content },
+						category: { $set: action.payload.category },
+					},
+				},
+			});
 		case EActions.REMOVE_NOTE:
 			const notes = state.notes.filter((value) => {
 				return value.id !== action.payload.id;
@@ -100,3 +110,9 @@ export const noteReducer = (state: NoteState = notesState, action: NoteAction): 
 			return state;
 	}
 };
+
+export const addNoteAction = (payload: INote) => ({ type: EActions.ADD_NOTE, payload: payload });
+export const editNoteAction = (payload: INote) => ({ type: EActions.EDIT_NOTE, payload: payload });
+export const removeNoteAction = (payload: INote) => ({ type: EActions.REMOVE_NOTE, payload: payload });
+export const archiveNoteAction = (payload: INote) => ({ type: EActions.ARCHIVE_NOTE, payload: payload });
+export const undoNoteAction = (payload: INote) => ({ type: EActions.UNDO_NOTE, payload: payload });

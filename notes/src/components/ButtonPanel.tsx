@@ -1,25 +1,25 @@
 import React from "react";
 import { INote } from "../model/note.model";
 import { useAppDispatch } from "../hooks/redux";
-import { EActions } from "../store/reducers/noteReducer";
+import { archiveNoteAction, editNoteAction, removeNoteAction, undoNoteAction } from "../store/reducers/noteReducer";
 
 export const ButtonPanel = (props: { note: INote }) => {
 	const dispatch = useAppDispatch();
 
 	const editNote = (id: number) => {
-		dispatch({ type: EActions.EDIT_NOTE, payload: props.note });
+		dispatch(editNoteAction(props.note));
 	};
 
 	const archiveNote = (id: number) => {
-		dispatch({ type: EActions.ARCHIVE_NOTE, payload: props.note });
+		dispatch(archiveNoteAction(props.note));
 	};
 
 	const undoNote = (id: number) => {
-		dispatch({ type: EActions.UNDO_NOTE, payload: props.note });
+		dispatch(undoNoteAction(props.note));
 	};
 
 	const removeNote = (id: number) => {
-		dispatch({ type: EActions.REMOVE_NOTE, payload: props.note });
+		dispatch(removeNoteAction(props.note));
 	};
 
 	return (
