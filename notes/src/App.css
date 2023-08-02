@@ -1,0 +1,13 @@
+td,
+th,
+tr {
+	text-align: center;
+	padding: 15px;
+}
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	padding: 10px;
+}
